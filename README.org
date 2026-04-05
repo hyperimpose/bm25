@@ -1,4 +1,4 @@
-* bm25e: An Okapi BM25 implementation in pure Erlang
+* bm25: An Okapi BM25 implementation in pure Erlang
 
 This is a pure Erlang library that implements the Okapi BM25 algorithm.
 
@@ -22,12 +22,12 @@ Features:
 ** Build
 
 **** rebar3
-~bm25e~ is built using rebar3. You can compile it by running: ~$ rebar3 compile~.
+~bm25~ is built using rebar3. You can compile it by running: ~$ rebar3 compile~.
 
 or you can include it in your projects as a dependency in rebar.config:
 #+BEGIN_SRC erlang
   {deps, [%% ... Other dependencies
-          {bm25e, {git, "https://github.com/hyperimpose/bm25e.git", {branch, "master"}}}]}.
+          {bm25, {git, "https://github.com/hyperimpose/bm25.git", {branch, "master"}}}]}.
 #+END_SRC
 
 ** Algorithm
