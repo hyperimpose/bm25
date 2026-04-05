@@ -1,0 +1,6 @@
+{application, bm25,
+ [{description, "Okapi BM25 implementation"},
+  {vsn, "0.0.1"},
+  {modules, [bm25]},
+  {registered, []},
+  {applications, [kernel, stdlib]}]}.

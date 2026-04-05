@@ -1,0 +1,40 @@
+* bm25e: An Okapi BM25 implementation in pure Erlang
+
+This is a pure Erlang library that implements the Okapi BM25 algorithm.
+
+Features:
+- Inverted Index
+- Customizable tokenization function
+
+** Usage
+
+#+BEGIN_SRC erlang
+  %% You provide your own tokenization function to clean-up and split text into tokens.
+  Index1 = bm25:init(#{tokenize => fun tokenize/1}),
+
+  %% Add documents // Each document must have a unique Id.
+  Index2 = bm25:add(Index1, Id1, Doc1)
+  Index3 = bm25:add(Index2, Id2, Doc2)
+
+  bm25:search(Index3, "query"),
+#+END_SRC
+  
+** Build
+
+**** rebar3
+~bm25e~ is built using rebar3. You can compile it by running: ~$ rebar3 compile~.
+
+or you can include it in your projects as a dependency in rebar.config:
+#+BEGIN_SRC erlang
+  {deps, [%% ... Other dependencies
+          {bm25e, {git, "https://github.com/hyperimpose/bm25e.git", {branch, "master"}}}]}.
+#+END_SRC
+
+** Algorithm
+
+The ranking function used is shown here: https://en.wikipedia.org/wiki/Okapi_BM25#The_ranking_function
+
+** License
+
+The library is licensed under the [[https://spdx.org/licenses/BSD-3-Clause.html][BSD 3-Clause "New" or "Revised" License]].
+A copy of this license is included in the file [[./COPYING][COPYING]].
