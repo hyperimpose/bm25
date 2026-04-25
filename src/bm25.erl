@@ -50,8 +50,8 @@ search(Index, Query, Opts) ->
           avgdl = Avgdl, n = N, nqi = NQi, tokenize = Tn} = Index,
 
     %% Options
-    Defaults = #{k1 => 1.2, b => 0.75},
-    #{k1 := K1, b := B} = maps:merge(Defaults, Opts),
+    Defaults = #{k1 => 1.2, b => 0.75, k => undefined},
+    #{k1 := K1, b := B, k := K} = maps:merge(Defaults, Opts),
 
     %% Tokenize query
     Q = Tn(Query),
@@ -72,7 +72,11 @@ search(Index, Query, Opts) ->
         end,
     Results = lists:map(F, Keys),
 
-    lists:sort(fun({_, S1}, {_, S2}) -> S1 > S2 end, Results).
+    Sorted = lists:sort(fun({_, S1}, {_, S2}) -> S1 > S2 end, Results),
+    case K of
+        _ when is_integer(K), K > 0 -> lists:sublist(Sorted, K);
+        _                           -> Sorted
+    end.
 
 
 bm25([{Qi, IDF} | Rest], FQiMap, K1, Nf, Acc) ->
@@ -83,7 +87,7 @@ bm25([{Qi, IDF} | Rest], FQiMap, K1, Nf, Acc) ->
         _Else        ->
             bm25(Rest, FQiMap, K1, Nf, Acc)  % FQi = 0
     end;
-bm25([], _FQiMap, _K1Plus1, _Nf, Acc) ->
+bm25([], _FQiMap, _K1, _Nf, Acc) ->
     Acc.
 
 
